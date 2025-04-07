@@ -16,12 +16,12 @@ um Software para automatizar o seu serviço.
 
 #### Clone o Repositório
 ```
-git clone https://github.com/academiadoprogramador-fullstack/gestao-equipamentos-2025.git
+git clone https://github.com/academiadoprogramador-fullstack/gestao-de-equipamentos-2025.git
 ```
 
 #### Navegue até a pasta raiz da solução
 ```
-cd gestao-equipamentos-2025
+cd gestao-de-equipamentos-2025
 ```
 
 #### Restaure as dependências
