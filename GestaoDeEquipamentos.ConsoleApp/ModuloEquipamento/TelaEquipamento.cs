@@ -7,7 +7,7 @@ public class TelaEquipamento
     public Equipamento[] equipamentos = new Equipamento[100];
     public int contadorEquipamentos = 0;
 
-    public string ApresentarMenu()
+    public char ApresentarMenu()
     {
         Console.Clear();
         Console.WriteLine("--------------------------------------------");
@@ -22,7 +22,7 @@ public class TelaEquipamento
         Console.WriteLine("--------------------------------------------");
 
         Console.Write("Digite um opção válida: ");
-        string opcaoEscolhida = Console.ReadLine();
+        char opcaoEscolhida = Console.ReadLine()[0];
 
         return opcaoEscolhida;
     }

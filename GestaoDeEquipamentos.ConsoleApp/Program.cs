@@ -8,32 +8,36 @@ class Program
     static void Main(string[] args)
     {
         TelaEquipamento telaEquipamento = new TelaEquipamento();
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
 
         while (true)
         {
-            string opcaoEscolhida = telaEquipamento.ApresentarMenu();
+            char opcaoPrincipal = telaPrincipal.ApresentarMenuPrincipal();
 
-            switch (opcaoEscolhida)
+            if (opcaoPrincipal == '1')
             {
-                case "1":
-                    telaEquipamento.CadastrarEquipamento();
-                    break;
+                char opcaoEscolhida = telaEquipamento.ApresentarMenu();
 
-                case "2":
-                    telaEquipamento.EditarEquipamento();
-                    break;
+                switch (opcaoEscolhida)
+                {
+                    case '1':
+                        telaEquipamento.CadastrarEquipamento();
+                        break;
 
-                case "3":
-                    telaEquipamento.ExcluirEquipamento();
-                    break;
+                    case '2':
+                        telaEquipamento.EditarEquipamento();
+                        break;
 
-                case "4":
-                    telaEquipamento.VisualizarEquipamentos(true);
-                    break;
+                    case '3':
+                        telaEquipamento.ExcluirEquipamento();
+                        break;
 
-                default:
-                    Console.WriteLine("Saindo do programa...");
-                    break;
+                    case '4':
+                        telaEquipamento.VisualizarEquipamentos(true);
+                        break;
+
+                    default: break;
+                }
             }
 
             Console.ReadLine();
