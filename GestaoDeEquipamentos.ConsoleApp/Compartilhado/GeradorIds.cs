@@ -3,6 +3,7 @@
 public static class GeradorIds
 {
     public static int IdEquipamentos = 0;
+    public static int IdChamados = 0;
 
     public static int GerarIdEquipamento()
     {
@@ -11,8 +12,9 @@ public static class GeradorIds
         return IdEquipamentos;
     }
 
-    public static Guid GerarGuidEquipamento()
-    {
-        return Guid.NewGuid();
+    public static int GerarIdChamado()   {
+        IdChamados++;
+ 
+        return IdChamados;
     }
 }
