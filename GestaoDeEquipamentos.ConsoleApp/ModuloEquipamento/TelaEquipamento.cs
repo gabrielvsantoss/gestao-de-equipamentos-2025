@@ -56,6 +56,10 @@ public class TelaEquipamento
 
         Equipamento novoEquipamento = ObterDadosEquipamento();
 
+        Fabricante fabricante = novoEquipamento.Fabricante;
+
+        fabricante.AdicionarEquipamento(novoEquipamento);
+
         repositorioEquipamento.CadastrarEquipamento(novoEquipamento);
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
@@ -75,9 +79,14 @@ public class TelaEquipamento
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
+        Equipamento equipamentoAntigo = repositorioEquipamento.SelecionarEquipamentoPorId(idSelecionado);
+        Fabricante fabricanteAntigo = equipamentoAntigo.Fabricante;
+
         Console.WriteLine();
 
         Equipamento equipamentoEditado = ObterDadosEquipamento();
+
+        Fabricante fabricanteEditado = equipamentoEditado.Fabricante;
 
         bool conseguiuEditar = repositorioEquipamento.EditarEquipamento(idSelecionado, equipamentoEditado);
 
@@ -86,6 +95,13 @@ public class TelaEquipamento
             Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
 
             return;
+        }
+
+        if (fabricanteAntigo != fabricanteEditado)
+        {
+            fabricanteAntigo.RemoverEquipamento(equipamentoAntigo);
+
+            fabricanteEditado.AdicionarEquipamento(equipamentoEditado);
         }
 
         Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
@@ -105,6 +121,8 @@ public class TelaEquipamento
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
+        Equipamento equipamentoSelecionado = repositorioEquipamento.SelecionarEquipamentoPorId(idSelecionado);
+
         bool conseguiuExcluir = repositorioEquipamento.ExcluirEquipamento(idSelecionado);
 
         if (!conseguiuExcluir)
@@ -113,6 +131,10 @@ public class TelaEquipamento
 
             return;
         }
+
+        Fabricante fabricanteSelecionado = equipamentoSelecionado.Fabricante;
+
+        fabricanteSelecionado.RemoverEquipamento(equipamentoSelecionado);
 
         Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
@@ -171,14 +193,14 @@ public class TelaEquipamento
 
         for (int i = 0; i < fabricantesCadastrados.Length; i++)
         {
-            Fabricante e = fabricantesCadastrados[i];
+            Fabricante f = fabricantesCadastrados[i];
 
-            if (e == null)
+            if (f == null)
                 continue;
 
             Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
-                e.Id, e.Nome, e.Email, e.Telefone, 0
+                f.Id, f.Nome, f.Email, f.Telefone, f.ObterQuantidadeEquipamentos()
             );
         }
 
