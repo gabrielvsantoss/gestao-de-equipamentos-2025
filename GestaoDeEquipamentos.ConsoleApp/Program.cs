@@ -56,9 +56,6 @@ class Program
                     default: break;
                 }
             }
-
-            Console.ReadLine();
         }
-        
     }
 }

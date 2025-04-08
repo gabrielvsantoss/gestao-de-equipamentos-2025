@@ -1,4 +1,6 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+
+namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 public class TelaEquipamento
 {
@@ -9,19 +11,28 @@ public class TelaEquipamento
         repositorioEquipamento = new RepositorioEquipamento();
     }
 
-    public char ApresentarMenu()
+    public void ExibirCabecalho()
     {
         Console.Clear();
         Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
+        Console.WriteLine("Controle de Equipamentos");
         Console.WriteLine("--------------------------------------------");
+    }
 
-        Console.WriteLine("Escolha a operação desejada:");
+    public char ApresentarMenu()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
         Console.WriteLine("1 - Cadastro de Equipamento");
         Console.WriteLine("2 - Edição de Equipamento");
         Console.WriteLine("3 - Exclusão de Equipamento");
         Console.WriteLine("4 - Visualização de Equipamentos");
-        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine("S - Voltar");
+
+        Console.WriteLine();
 
         Console.Write("Digite um opção válida: ");
         char opcaoEscolhida = Console.ReadLine()[0];
@@ -31,10 +42,9 @@ public class TelaEquipamento
 
     public void CadastrarEquipamento()
     {
-        Console.Clear();
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("--------------------------------------------");
+        ExibirCabecalho();
+
+        Console.WriteLine();
 
         Console.WriteLine("Cadastrando Equipamento...");
         Console.WriteLine("--------------------------------------------");
@@ -56,14 +66,15 @@ public class TelaEquipamento
         Equipamento novoEquipamento = new Equipamento(nome, fabricante, precoAquisicao, dataFabricacao);
 
         repositorioEquipamento.CadastrarEquipamento(novoEquipamento);
+
+        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
 
     public void EditarEquipamento()
     {
-        Console.Clear();
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("--------------------------------------------");
+        ExibirCabecalho();
+
+        Console.WriteLine();
 
         Console.WriteLine("Editando Equipamento...");
         Console.WriteLine("--------------------------------------------");
@@ -93,20 +104,19 @@ public class TelaEquipamento
 
         if (!conseguiuEditar)
         {
-            Console.WriteLine("Houve um erro durante a edição de um registro...");
+            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
+
             return;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("O equipamento foi editado com sucesso!");
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
     }
 
     public void ExcluirEquipamento()
     {
-        Console.Clear();
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("Gestão de Equipamentos");
-        Console.WriteLine("--------------------------------------------");
+        ExibirCabecalho();
+
+        Console.WriteLine();
 
         Console.WriteLine("Excluindo Equipamento...");
         Console.WriteLine("--------------------------------------------");
@@ -120,26 +130,23 @@ public class TelaEquipamento
 
         if (!conseguiuExcluir)
         {
-            Console.WriteLine("Houve um erro durante a exclusão de um registro...");
+            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
+
             return;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("O equipamento foi excluído com sucesso!");
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
 
     public void VisualizarEquipamentos(bool exibirTitulo)
     {
         if (exibirTitulo)
-        {
-            Console.Clear();
-            Console.WriteLine("--------------------------------------------");
-            Console.WriteLine("Gestão de Equipamentos");
-            Console.WriteLine("--------------------------------------------");
+            ExibirCabecalho();
 
-            Console.WriteLine("Visualizando Equipamentos...");
-            Console.WriteLine("--------------------------------------------");
-        }
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Equipamentos...");
+        Console.WriteLine("--------------------------------------------");
 
         Console.WriteLine();
 
@@ -163,5 +170,7 @@ public class TelaEquipamento
         }
 
         Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 }
