@@ -13,4 +13,9 @@ public class RepositorioFabricante
 
         fabricantes[contadorFabricantes++] = novoFabricante; 
     }
+
+    public Fabricante[] SelecionarFabricantes()
+    {
+        return fabricantes;
+    }
 }

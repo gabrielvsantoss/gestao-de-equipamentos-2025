@@ -36,7 +36,7 @@ class Program
 
                     //case '3': telaFabricante.ExcluirFabricante(); break;
 
-                    //case '4': telaFabricante.VisualizarFabricantes(true); break;
+                    case '4': telaFabricante.VisualizarFabricantes(true); break;
 
                     default: break;
                 }
