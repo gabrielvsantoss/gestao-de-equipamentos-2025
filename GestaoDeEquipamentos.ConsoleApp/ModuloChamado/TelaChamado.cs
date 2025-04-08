@@ -6,13 +6,13 @@ namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
 public class TelaChamado
 {
-    public RepositorioEquipamento repositorioEquipamento;
     public RepositorioChamado repositorioChamado;
+    public RepositorioEquipamento repositorioEquipamento;
 
-    public TelaChamado(RepositorioEquipamento repositorioEquipamento)
+    public TelaChamado(RepositorioChamado repositorioChamado, RepositorioEquipamento repositorioEquipamento)
     {
+        this.repositorioChamado = repositorioChamado;
         this.repositorioEquipamento = repositorioEquipamento;
-        repositorioChamado = new RepositorioChamado();
     }
 
     public void ExibirCabecalho()

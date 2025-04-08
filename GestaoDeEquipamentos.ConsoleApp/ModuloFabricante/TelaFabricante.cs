@@ -7,9 +7,9 @@ public class TelaFabricante
 {
     public RepositorioFabricante repositorioFabricante;
 
-    public TelaFabricante()
+    public TelaFabricante(RepositorioFabricante repositorioFabricante)
     {
-        repositorioFabricante = new RepositorioFabricante();
+        this.repositorioFabricante = repositorioFabricante;
     }
 
     public void ExibirCabecalho()
@@ -58,7 +58,6 @@ public class TelaFabricante
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
-
    
     public void EditarFabricante()
     {

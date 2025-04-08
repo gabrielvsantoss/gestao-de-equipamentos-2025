@@ -10,13 +10,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        TelaFabricante telaFabricante = new TelaFabricante();
+        RepositorioFabricante repositorioFabricante = new RepositorioFabricante();
+        RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
+        RepositorioChamado repositorioChamado = new RepositorioChamado();
 
-        TelaEquipamento telaEquipamento = new TelaEquipamento();
-
-        RepositorioEquipamento repositorioEquipamento = telaEquipamento.repositorioEquipamento;
-
-        TelaChamado telaChamado = new TelaChamado(repositorioEquipamento);
+        TelaFabricante telaFabricante = new TelaFabricante(repositorioFabricante);
+        TelaEquipamento telaEquipamento = new TelaEquipamento(repositorioEquipamento, repositorioFabricante);
+        TelaChamado telaChamado = new TelaChamado(repositorioChamado, repositorioEquipamento);
 
         TelaPrincipal telaPrincipal = new TelaPrincipal();
 

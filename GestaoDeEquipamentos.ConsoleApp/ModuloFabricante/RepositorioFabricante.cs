@@ -55,4 +55,20 @@ public class RepositorioFabricante
     {
         return fabricantes;
     }
+
+    public Fabricante SelecionarFabricantePorId(int idFabricante)
+    {
+        for (int i = 0; i < fabricantes.Length; i++)
+        {
+            Fabricante e = fabricantes[i];
+
+            if (e == null)
+                continue;
+
+            else if (e.Id == idFabricante)
+                return e;
+        }
+
+        return null;
+    }
 }
