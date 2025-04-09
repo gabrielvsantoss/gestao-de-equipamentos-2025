@@ -60,6 +60,8 @@ public class TelaFabricante
         {
             Notificador.ExibirMensagem(erros, ConsoleColor.Red);
 
+            CadastrarFabricante();
+
             return;
         }
 
