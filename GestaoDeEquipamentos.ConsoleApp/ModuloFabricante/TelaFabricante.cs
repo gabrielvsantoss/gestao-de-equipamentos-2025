@@ -54,6 +54,15 @@ public class TelaFabricante
 
         Fabricante novoFabricante = ObterDadosFabricante();
 
+        string erros = novoFabricante.Validar();
+
+        if (erros.Length > 0)
+        {
+            Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+
+            return;
+        }
+
         repositorioFabricante.CadastrarFabricante(novoFabricante);
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
