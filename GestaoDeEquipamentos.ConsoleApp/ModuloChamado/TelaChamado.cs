@@ -140,7 +140,7 @@ public class TelaChamado
             if (c == null)
                 continue;
 
-            string tempoDecorrido = $"{c.ObterTempoDecorrido()} dia(s)";
+            string tempoDecorrido = $"{c.TempoDecorrido} dia(s)";
 
             Console.WriteLine(
                 "{0, -6} | {1, -12} | {2, -15} | {3, -30} | {4, -15} | {5, -15}",
@@ -197,7 +197,7 @@ public class TelaChamado
 
             Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
-                e.Id, e.Nome, e.ObterNumeroSerie(), e.Fabricante, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
+                e.Id, e.Nome, e.NumeroSerie, e.Fabricante, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
             );
         }
 

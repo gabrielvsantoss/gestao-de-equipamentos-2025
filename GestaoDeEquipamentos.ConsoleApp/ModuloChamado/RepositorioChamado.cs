@@ -1,12 +1,11 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
-using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
 public class RepositorioChamado
 {
-    public Chamado[] chamados = new Chamado[100];
-    public int contadorChamados  = 0;
+    private Chamado[] chamados = new Chamado[100];
+    private int contadorChamados = 0;
 
     public void CadastrarChamado(Chamado novoChamado)
     {
@@ -27,7 +26,6 @@ public class RepositorioChamado
                 chamados[i].Titulo = novoChamado.Titulo;
                 chamados[i].Descricao = novoChamado.Descricao;
                 chamados[i].Equipamento = novoChamado.Equipamento;
-                chamados[i].DataAbertura = novoChamado.DataAbertura;
 
                 return true;
             }

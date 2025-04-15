@@ -153,7 +153,7 @@ public class TelaFabricante
 
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
-                f.Id, f.Nome, f.Email, f.Telefone, f.ObterQuantidadeEquipamentos()
+                f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
             );
         }
 
