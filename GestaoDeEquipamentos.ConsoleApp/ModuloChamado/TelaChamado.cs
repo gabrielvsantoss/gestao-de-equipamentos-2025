@@ -4,117 +4,19 @@ using GestaoDeEquipamentos.ConsoleApp.Util;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class TelaChamado
+public class TelaChamado : TelaBase
 {
     public RepositorioChamado repositorioChamado;
     public RepositorioEquipamento repositorioEquipamento;
 
     public TelaChamado(RepositorioChamado repositorioChamado, RepositorioEquipamento repositorioEquipamento)
+        : base("Chamado", repositorioChamado)
     {
         this.repositorioChamado = repositorioChamado;
         this.repositorioEquipamento = repositorioEquipamento;
     }
-
-    public void ExibirCabecalho()
-    {
-        Console.Clear();
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("Controle de Chamados");
-        Console.WriteLine("--------------------------------------------");
-    }
-
-    public char ApresentarMenu()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine();
-
-        Console.WriteLine("1 - Cadastrar Chamado");
-        Console.WriteLine("2 - Editar Chamado");
-        Console.WriteLine("3 - Excluir Chamado");
-        Console.WriteLine("4 - Visualizar Chamados");
-
-        Console.WriteLine("S - Voltar");
-
-        Console.WriteLine();
-
-        Console.Write("Escolha uma das opções: ");
-        char operacaoEscolhida = Convert.ToChar(Console.ReadLine()!);
-
-        return operacaoEscolhida;
-    }
-
-    public void CadastrarChamado()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine();
-
-        Console.WriteLine("Cadastrando Chamado...");
-        Console.WriteLine("--------------------------------------------");
-
-        Chamado novoChamado = ObterDadosChamado();
-
-        repositorioChamado.CadastrarRegistro(novoChamado);
-
-        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
-    }
-
-    public void EditarChamado()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine();
-
-        Console.WriteLine("Editando Chamado...");
-        Console.WriteLine("--------------------------------------------");
-
-        VisualizarChamados(false);
-
-        Console.Write("Digite o ID do chamado que deseja editar: ");
-        int idChamado = Convert.ToInt32(Console.ReadLine());
-
-        Chamado novoChamado = ObterDadosChamado();
-
-        bool conseguiuEditar = repositorioChamado.EditarRegistro(idChamado, novoChamado);
-
-        if (!conseguiuEditar)
-        {
-            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
-
-            return;
-        }
-
-        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
-    }
-
-    public void ExcluirChamado()
-    {
-        ExibirCabecalho();
-
-        Console.WriteLine();
-
-        Console.WriteLine("Excluindo Chamado...");
-        Console.WriteLine("--------------------------------------------");
-
-        VisualizarChamados(false);
-
-        Console.Write("Digite o ID do chamado que deseja excluir: ");
-        int idChamado = Convert.ToInt32(Console.ReadLine());
-
-        bool conseguiuExcluir = repositorioChamado.ExcluirRegistro(idChamado);
-
-        if (!conseguiuExcluir)
-        {
-            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
-
-            return;
-        }
-
-        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
-    }
-
-    public void VisualizarChamados(bool exibirTitulo)
+    
+    public override void VisualizarRegistros(bool exibirTitulo)
     {
         if (exibirTitulo)
             ExibirCabecalho();
@@ -158,7 +60,7 @@ public class TelaChamado
         Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
-    public Chamado ObterDadosChamado()
+    public override EntidadeBase ObterDados()
     {
         Console.Write("Digite o título do chamado: ");
         string titulo = Console.ReadLine()!.Trim();

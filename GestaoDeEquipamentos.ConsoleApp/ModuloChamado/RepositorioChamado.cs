@@ -5,5 +5,3 @@ namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 public class RepositorioChamado : RepositorioBase
 {
 }
-
-

@@ -29,13 +29,13 @@ class Program
 
                 switch (opcaoEscolhida)
                 {
-                    case '1': telaFabricante.CadastrarFabricante(); break;
+                    case '1': telaFabricante.CadastrarRegistro(); break;
 
-                    case '2': telaFabricante.EditarFabricante(); break;
+                    case '2': telaFabricante.EditarRegistro(); break;
 
-                    case '3': telaFabricante.ExcluirFabricante(); break;
+                    case '3': telaFabricante.ExcluirRegistro(); break;
 
-                    case '4': telaFabricante.VisualizarFabricantes(true); break;
+                    case '4': telaFabricante.VisualizarRegistros(true); break;
 
                     default: break;
                 }
@@ -47,13 +47,13 @@ class Program
 
                 switch (opcaoEscolhida)
                 {
-                    case '1': telaEquipamento.CadastrarEquipamento(); break;
+                    case '1': telaEquipamento.CadastrarRegistro(); break;
 
-                    case '2': telaEquipamento.EditarEquipamento(); break;
+                    case '2': telaEquipamento.EditarRegistro(); break;
 
-                    case '3': telaEquipamento.ExcluirEquipamento(); break;
+                    case '3': telaEquipamento.ExcluirRegistro(); break;
 
-                    case '4': telaEquipamento.VisualizarEquipamentos(true); break;
+                    case '4': telaEquipamento.VisualizarRegistros(true); break;
 
                     default: break;
                 }

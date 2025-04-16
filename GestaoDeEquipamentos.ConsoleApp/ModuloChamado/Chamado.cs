@@ -35,4 +35,23 @@ public class Chamado : EntidadeBase
         Descricao = chamadoAtualizado.Descricao;
         Equipamento = chamadoAtualizado.Equipamento;
     }
+
+    public override string Validar()
+    {
+        string erros = "";
+
+        if (string.IsNullOrWhiteSpace(Titulo))
+            erros += "O campo 'Título' é obrigatório.\n";
+
+        if (Titulo.Length < 3)
+            erros += "O campo 'Título' precisa conter ao menos 3 caracteres.\n";
+
+        if (string.IsNullOrWhiteSpace(Descricao))
+            erros += "O campo 'Descrição' é obrigatório.\n";
+
+        if (Equipamento == null)
+            erros += "O campo 'Equipamento' é obrigatório.\n";
+
+        return erros;
+    }
 }
