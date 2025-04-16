@@ -1,5 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+using GestaoDeEquipamentos.ConsoleApp.Util;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
@@ -60,7 +61,7 @@ public class TelaEquipamento
 
         fabricante.AdicionarEquipamento(novoEquipamento);
 
-        repositorioEquipamento.CadastrarEquipamento(novoEquipamento);
+        repositorioEquipamento.CadastrarRegistro(novoEquipamento);
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
@@ -79,7 +80,7 @@ public class TelaEquipamento
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Equipamento equipamentoAntigo = repositorioEquipamento.SelecionarEquipamentoPorId(idSelecionado);
+        Equipamento equipamentoAntigo = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
         Fabricante fabricanteAntigo = equipamentoAntigo.Fabricante;
 
         Console.WriteLine();
@@ -88,7 +89,7 @@ public class TelaEquipamento
 
         Fabricante fabricanteEditado = equipamentoEditado.Fabricante;
 
-        bool conseguiuEditar = repositorioEquipamento.EditarEquipamento(idSelecionado, equipamentoEditado);
+        bool conseguiuEditar = repositorioEquipamento.EditarRegistro(idSelecionado, equipamentoEditado);
 
         if (!conseguiuEditar)
         {
@@ -121,9 +122,9 @@ public class TelaEquipamento
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Equipamento equipamentoSelecionado = repositorioEquipamento.SelecionarEquipamentoPorId(idSelecionado);
+        Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
 
-        bool conseguiuExcluir = repositorioEquipamento.ExcluirEquipamento(idSelecionado);
+        bool conseguiuExcluir = repositorioEquipamento.ExcluirRegistro(idSelecionado);
 
         if (!conseguiuExcluir)
         {
@@ -156,7 +157,12 @@ public class TelaEquipamento
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        Equipamento[] equipamentosCadastrados = repositorioEquipamento.SelecionarEquipamentos();
+        EntidadeBase[] registros = repositorioEquipamento.SelecionarRegistros();
+
+        Equipamento[] equipamentosCadastrados = new Equipamento[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            equipamentosCadastrados[i] = (Equipamento)registros[i];
 
         for (int i = 0; i < equipamentosCadastrados.Length; i++)
         {

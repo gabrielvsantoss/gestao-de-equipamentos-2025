@@ -1,6 +1,4 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
-
-namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 
 public abstract class RepositorioBase
 {

@@ -1,10 +1,10 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-public class Equipamento
+public class Equipamento : EntidadeBase
 {
-    public int Id { get; set; }
     public string Nome { get; set; }
     public Fabricante Fabricante { get; set; }
     public decimal PrecoAquisicao { get; set; }
@@ -25,5 +25,14 @@ public class Equipamento
         PrecoAquisicao = precoAquisicao;
         DataFabricacao = dataFabricacao;
         Fabricante = fabricante;
+    }
+
+    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    {
+        Equipamento equipamentoAtualizado = (Equipamento)registroAtualizado;
+
+        Nome = equipamentoAtualizado.Nome;
+        DataFabricacao = equipamentoAtualizado.DataFabricacao;
+        PrecoAquisicao = equipamentoAtualizado.PrecoAquisicao;
     }
 }

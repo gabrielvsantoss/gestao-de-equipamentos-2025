@@ -1,4 +1,4 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿namespace GestaoDeEquipamentos.ConsoleApp.Util;
 
 public class TelaPrincipal
 {
