@@ -1,81 +1,110 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+using GestaoDeEquipamentos.ConsoleApp.ModuloSetor;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 
 namespace GestaoDeEquipamentos.ConsoleApp;
+
+public class Animal
+{
+    public string nome;
+    public override string ToString()
+    {
+        return nome;
+    }
+
+    public virtual void Andar()
+    {
+        Console.WriteLine($"O {nome} está andando... ");
+    }
+}
+public class Cachorro : Animal
+{
+    public override void Andar()
+    {
+        Console.WriteLine("Cachorro em ação: ");
+        base.Andar();
+    }
+}
+
+public class Gato : Animal
+{
+    public override void Andar()
+    {
+        Console.WriteLine("Gato em ação: ");
+        base.Andar();
+    }
+}
+
+public class Coelho : Animal
+{
+    public override void Andar()
+    {
+        Console.WriteLine("Goelho em ação: ");
+        base.Andar();
+    }
+}
 
 class Program
 {
     static void Main(string[] args)
     {
-        RepositorioFabricante repositorioFabricante = new RepositorioFabricante();
-        RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
-        RepositorioChamado repositorioChamado = new RepositorioChamado();
+        var c = new Cachorro();
+        c.nome = "Totó";
 
-        TelaFabricante telaFabricante = new TelaFabricante(repositorioFabricante);
-        TelaEquipamento telaEquipamento = new TelaEquipamento(repositorioEquipamento, repositorioFabricante);
-        TelaChamado telaChamado = new TelaChamado(repositorioChamado, repositorioEquipamento);
+        var g = new Gato();
+        g.nome = "Missi";
 
+        var coelho = new Coelho();
+        coelho.nome = "Coelhinho da Pascoa";
+
+        AndarNaTela(g);
+        AndarNaTela(c);
+        AndarNaTela(coelho);
+    }
+
+    static void AndarNaTela(Animal animal)
+    {
+        Type type = animal.GetType();
+        animal.Andar();
+    }
+
+
+    static void Main2(string[] args)
+    {       
         TelaPrincipal telaPrincipal = new TelaPrincipal();
 
         while (true)
         {
-            char opcaoPrincipal = telaPrincipal.ApresentarMenuPrincipal();
+            telaPrincipal.ApresentarMenuPrincipal();
 
-            if (opcaoPrincipal == '1')
+            TelaBase telaSelecionada = telaPrincipal.ObterTela();
+
+            char opcaoEscolhida = telaSelecionada.ApresentarMenu();
+
+            if (telaSelecionada is TelaChamado)
             {
-                char opcaoEscolhida = telaFabricante.ApresentarMenu();
-
-                switch (opcaoEscolhida)
+                TelaChamado telaChamado = (TelaChamado)telaSelecionada;
+                if (opcaoEscolhida == '5')
                 {
-                    case '1': telaFabricante.CadastrarRegistro(); break;
-
-                    case '2': telaFabricante.EditarRegistro(); break;
-
-                    case '3': telaFabricante.ExcluirRegistro(); break;
-
-                    case '4': telaFabricante.VisualizarRegistros(true); break;
-
-                    default: break;
+                    telaChamado.VisualizarChamadosEmAberto();
                 }
             }
 
-            else if (opcaoPrincipal == '2')
+            switch (opcaoEscolhida)
             {
-                char opcaoEscolhida = telaEquipamento.ApresentarMenu();
+                case '1': telaSelecionada.CadastrarRegistro(); break;
 
-                switch (opcaoEscolhida)
-                {
-                    case '1': telaEquipamento.CadastrarRegistro(); break;
+                case '2': telaSelecionada.EditarRegistro(); break;
 
-                    case '2': telaEquipamento.EditarRegistro(); break;
+                case '3': telaSelecionada.ExcluirRegistro(); break;
 
-                    case '3': telaEquipamento.ExcluirRegistro(); break;
+                case '4': telaSelecionada.VisualizarRegistros(true); break;
 
-                    case '4': telaEquipamento.VisualizarRegistros(true); break;
-
-                    default: break;
-                }
-            }
-
-            else if (opcaoPrincipal == '3')
-            {
-                char opcaoEscolhida = telaChamado.ApresentarMenu();
-
-                switch (opcaoEscolhida)
-                {
-                    case '1': telaChamado.CadastrarChamado(); break;
-
-                    case '2': telaChamado.EditarChamado(); break;
-
-                    case '3': telaChamado.ExcluirChamado(); break;
-
-                    case '4': telaChamado.VisualizarChamados(true); break;
-
-                    default: break;
-                }
-            }
+                default: break;
+            }           
         }
     }
 }

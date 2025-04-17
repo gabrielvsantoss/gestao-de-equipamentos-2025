@@ -1,6 +1,7 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.Util;
+using System.Runtime.ConstrainedExecution;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
@@ -60,6 +61,14 @@ public class TelaChamado : TelaBase
         Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
+    public void VisualizarChamadosEmAberto()
+    {
+        Console.WriteLine( "Visualizando chamados em aberto..." );
+
+        Console.WriteLine("Tecle enter para continuar" );
+
+        Console.ReadLine();
+    }
     public override EntidadeBase ObterDados()
     {
         Console.Write("Digite o título do chamado: ");

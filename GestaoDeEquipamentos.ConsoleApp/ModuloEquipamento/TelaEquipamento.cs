@@ -1,5 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+using GestaoDeEquipamentos.ConsoleApp.ModuloSetor;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
@@ -8,12 +9,14 @@ public class TelaEquipamento : TelaBase
 {
     public RepositorioEquipamento repositorioEquipamento;
     public RepositorioFabricante repositorioFabricante;
+    public RepositorioSetor respositorioSetor;
 
-    public TelaEquipamento(RepositorioEquipamento repositorioEquipamento, RepositorioFabricante repositorioFabricante)
-        : base ("Equipamento", repositorioEquipamento)
+    public TelaEquipamento(RepositorioEquipamento repositorioEquipamento, RepositorioFabricante repositorioFabricante, RepositorioSetor respositorioSetor)
+        : base("Equipamento", repositorioEquipamento)
     {
         this.repositorioEquipamento = repositorioEquipamento;
         this.repositorioFabricante = repositorioFabricante;
+        this.respositorioSetor = respositorioSetor;
     }
 
     public override void CadastrarRegistro()
@@ -137,8 +140,8 @@ public class TelaEquipamento : TelaBase
         Console.WriteLine();
 
         Console.WriteLine(
-            "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
-            "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
+            "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10} | {6, -10}",
+            "Id", "Nome", "Num. Série", "Fabricante", "Setor", "Preço", "Data de Fabricação"
         );
 
         EntidadeBase[] registros = repositorioEquipamento.SelecionarRegistros();
@@ -155,8 +158,8 @@ public class TelaEquipamento : TelaBase
             if (e == null) continue;
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
-                e.Id, e.Nome, e.NumeroSerie, e.Fabricante.Nome, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
+                "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10} | {6, -10}",
+                e.Id, e.Nome, e.NumeroSerie, e.Fabricante.Nome, e.Setor.Nome, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()
             );
         }
 
@@ -183,11 +186,19 @@ public class TelaEquipamento : TelaBase
 
         Fabricante fabricanteSelecionado = (Fabricante)repositorioFabricante.SelecionarRegistroPorId(idFabricante);
 
+        VisualizarSetores();
+
+        Console.Write("Digite o id do registro que deseja selecionar: ");
+        int idSetor = Convert.ToInt32(Console.ReadLine());
+
+        Setor setorSelecionado = (Setor)respositorioSetor.SelecionarRegistroPorId(idSetor);
+
         Equipamento equipamento = new Equipamento(
             nome,
             precoAquisicao,
             dataFabricacao,
-            fabricanteSelecionado
+            fabricanteSelecionado,
+            setorSelecionado
         );
 
         Fabricante fabricante = equipamento.Fabricante;
@@ -227,6 +238,41 @@ public class TelaEquipamento : TelaBase
             Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
                 f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
+            );
+        }
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+
+    public void VisualizarSetores()
+    {       
+        Console.WriteLine("Visualizando Setores...");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -6} | {1, -30} | {2, -30} | {3, -20}",
+            "Id", "Nome", "Telefone", "Responsável"
+        );
+
+        EntidadeBase[] registros = respositorioSetor.SelecionarRegistros();
+        Setor[] setoresCadastrados = new Setor[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            setoresCadastrados[i] = (Setor)registros[i];
+
+        for (int i = 0; i < setoresCadastrados.Length; i++)
+        {
+            Setor s = setoresCadastrados[i];
+
+            if (s == null) continue;
+
+            Console.WriteLine(
+                "{0, -6} | {1, -30} | {2, -30} | {3, -20}",
+                s.Id, s.Nome, s.Telefone, s.Responsavel
             );
         }
 
