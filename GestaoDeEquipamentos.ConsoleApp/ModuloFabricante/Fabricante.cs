@@ -34,6 +34,15 @@ public class Fabricante : EntidadeBase
         Equipamentos = new Equipamento[100];
     }
 
+    public override void AtualizarRegistro(EntidadeBase registroEditado)
+    {
+        Fabricante fabricanteEditado = (Fabricante)registroEditado;
+
+        Nome = fabricanteEditado.Nome;
+        Email = fabricanteEditado.Email;
+        Telefone = fabricanteEditado.Telefone;
+    }
+
     public override string Validar()
     {
         string erros = "";
@@ -88,12 +97,5 @@ public class Fabricante : EntidadeBase
         }
     }
 
-    public override void AtualizarRegistro(EntidadeBase registroEditado)
-    {
-        Fabricante fabricanteEditado = (Fabricante)registroEditado;
-
-        Nome = fabricanteEditado.Nome;
-        Email = fabricanteEditado.Email;
-        Telefone = fabricanteEditado.Telefone;
-    }
+   
 }

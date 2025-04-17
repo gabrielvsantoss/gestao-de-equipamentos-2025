@@ -1,5 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+using GestaoDeEquipamentos.ConsoleApp.ModuloSetor;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
@@ -7,6 +8,8 @@ public class Equipamento : EntidadeBase
 {
     public string Nome { get; set; }
     public Fabricante Fabricante { get; set; }
+
+    public Setor Setor { get; set; }
     public decimal PrecoAquisicao { get; set; }
     public DateTime DataFabricacao { get; set; }
     public string NumeroSerie
@@ -19,12 +22,13 @@ public class Equipamento : EntidadeBase
         }
     }
 
-    public Equipamento(string nome, decimal precoAquisicao, DateTime dataFabricacao, Fabricante fabricante)
+    public Equipamento(string nome, decimal precoAquisicao, DateTime dataFabricacao, Fabricante fabricante, Setor setor)
     {
         Nome = nome;
         PrecoAquisicao = precoAquisicao;
         DataFabricacao = dataFabricacao;
         Fabricante = fabricante;
+        Setor = setor;
     }
 
     public override void AtualizarRegistro(EntidadeBase registroAtualizado)
@@ -34,6 +38,7 @@ public class Equipamento : EntidadeBase
         Nome = equipamentoAtualizado.Nome;
         DataFabricacao = equipamentoAtualizado.DataFabricacao;
         PrecoAquisicao = equipamentoAtualizado.PrecoAquisicao;
+        Setor = equipamentoAtualizado.Setor;
     }
 
     public override string Validar()
@@ -51,6 +56,12 @@ public class Equipamento : EntidadeBase
 
         if (DataFabricacao > DateTime.Now)
             erros += "O campo 'Data de Fabricação' deve conter uma data passada.\n";
+
+        if (Fabricante == null)
+            erros += "O campo 'Fabricante' não pode ser nulo \n";
+
+        if (Setor == null)
+            erros += "O campo 'Setor' não pode ser nulo \n";
 
         return erros;
     }
