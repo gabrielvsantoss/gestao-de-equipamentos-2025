@@ -65,13 +65,13 @@ class Program
 
                 switch (opcaoEscolhida)
                 {
-                    case '1': telaChamado.CadastrarChamado(); break;
+                    case '1': telaChamado.CadastrarRegistro(); break;
 
-                    case '2': telaChamado.EditarChamado(); break;
+                    case '2': telaChamado.EditarRegistro(); break;
 
-                    case '3': telaChamado.ExcluirChamado(); break;
+                    case '3': telaChamado.ExcluirRegistro(); break;
 
-                    case '4': telaChamado.VisualizarChamados(true); break;
+                    case '4': telaChamado.VisualizarRegistros(true); break;
 
                     default: break;
                 }
