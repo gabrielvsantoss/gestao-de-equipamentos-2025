@@ -1,6 +1,7 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.Util;
+using System.Collections;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
@@ -33,20 +34,10 @@ public class TelaChamado : TelaBase
             "Id", "Data de Abertura", "Título", "Descrição", "Equipamento", "Tempo Decorrido"
         );
 
-        EntidadeBase[] registros = repositorioChamado.SelecionarRegistros();
+        ArrayList registros = repositorioChamado.SelecionarRegistros();
 
-        Chamado[] chamadosCadastrados = new Chamado[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            chamadosCadastrados[i] = (Chamado)registros[i];
-
-        for (int i = 0; i < chamadosCadastrados.Length; i++)
+        foreach (Chamado c in registros)
         {
-            Chamado c = chamadosCadastrados[i];
-
-            if (c == null)
-                continue;
-
             string tempoDecorrido = $"{c.TempoDecorrido} dia(s)";
 
             Console.WriteLine(
@@ -94,19 +85,10 @@ public class TelaChamado : TelaBase
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        EntidadeBase[] registros = repositorioEquipamento.SelecionarRegistros();
+        ArrayList registros = repositorioEquipamento.SelecionarRegistros();
 
-        Equipamento[] equipamentosCadastrados = new Equipamento[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            equipamentosCadastrados[i] = (Equipamento)registros[i];
-
-        for (int i = 0; i < equipamentosCadastrados.Length; i++)
+        foreach (Equipamento e in registros)
         {
-            Equipamento e = equipamentosCadastrados[i];
-
-            if (e == null) continue;
-
             Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
                 e.Id, e.Nome, e.NumeroSerie, e.Fabricante, e.PrecoAquisicao.ToString("C2"), e.DataFabricacao.ToShortDateString()

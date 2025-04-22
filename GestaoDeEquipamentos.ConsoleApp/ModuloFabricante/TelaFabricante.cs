@@ -1,6 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
-using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.Util;
+using System.Collections;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
@@ -29,18 +29,10 @@ public class TelaFabricante : TelaBase
             "Id", "Nome", "Email", "Telefone", "Qtd. Equipamentos"
         );
 
-        EntidadeBase[] registros = repositorioFabricante.SelecionarRegistros();
-        Fabricante[] fabricantesCadastrados = new Fabricante[registros.Length];
+        ArrayList registros = repositorioFabricante.SelecionarRegistros();
 
-        for (int i = 0; i < registros.Length; i++)
-            fabricantesCadastrados[i] = (Fabricante)registros[i];
-
-        for (int i = 0; i < fabricantesCadastrados.Length; i++)
+        foreach (Fabricante f in registros)
         {
-            Fabricante f = fabricantesCadastrados[i];
-
-            if (f == null) continue;
-
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
                 f.Id, f.Nome, f.Email, f.Telefone, f.QuantidadeEquipamentos
