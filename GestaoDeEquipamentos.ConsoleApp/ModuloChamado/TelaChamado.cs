@@ -1,11 +1,10 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.Util;
-using System.Collections;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class TelaChamado : TelaBase
+public class TelaChamado : TelaBase<Chamado>, ITelaCrud
 {
     public RepositorioChamado repositorioChamado;
     public RepositorioEquipamento repositorioEquipamento;
@@ -34,9 +33,9 @@ public class TelaChamado : TelaBase
             "Id", "Data de Abertura", "Título", "Descrição", "Equipamento", "Tempo Decorrido"
         );
 
-        ArrayList registros = repositorioChamado.SelecionarRegistros();
+        List<Chamado> registros = repositorioChamado.SelecionarRegistros();
 
-        foreach (Chamado c in registros)
+        foreach (var c in registros)
         {
             string tempoDecorrido = $"{c.TempoDecorrido} dia(s)";
 
@@ -51,7 +50,7 @@ public class TelaChamado : TelaBase
         Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
-    public override EntidadeBase ObterDados()
+    public override Chamado ObterDados()
     {
         Console.Write("Digite o título do chamado: ");
         string titulo = Console.ReadLine()!.Trim();
@@ -85,9 +84,9 @@ public class TelaChamado : TelaBase
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        ArrayList registros = repositorioEquipamento.SelecionarRegistros();
+        List<Equipamento> registros = repositorioEquipamento.SelecionarRegistros();
 
-        foreach (Equipamento e in registros)
+        foreach (var e in registros)
         {
             Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",

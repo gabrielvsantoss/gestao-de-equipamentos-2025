@@ -1,22 +1,20 @@
-﻿using System.Collections;
+﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 
-namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
-
-public abstract class RepositorioBase
+public abstract class RepositorioBase<T> where T : EntidadeBase<T> // boxing / constraint
 {
-    private ArrayList registros = new ArrayList();
+    private List<T> registros = new List<T>();
     private int contadorIds = 0;
 
-    public void CadastrarRegistro(EntidadeBase novoRegistro)
+    public void CadastrarRegistro(T novoRegistro)
     {
         novoRegistro.Id = ++contadorIds;
 
         registros.Add(novoRegistro);
     }
 
-    public bool EditarRegistro(int idRegistro, EntidadeBase registroEditado)
+    public bool EditarRegistro(int idRegistro, T registroEditado)
     {
-        foreach (EntidadeBase item in registros)
+        foreach (T item in registros)
         {
             if (item.Id == idRegistro)
             {
@@ -31,24 +29,7 @@ public abstract class RepositorioBase
 
     public bool ExcluirRegistro(int idRegistro)
     {
-        #region iteração com for
-        //for (int i = 0; i < registros.Count; i++)
-        //{
-        //    EntidadeBase registroSelecionado = (EntidadeBase)registros[i];
-
-        //    if (registroSelecionado == null)
-        //        continue;
-
-        //    else if (registroSelecionado.Id == idRegistro)
-        //    {
-        //        registros.Remove(registroSelecionado);
-
-        //        return true;
-        //    }
-        //}
-        #endregion
-
-        EntidadeBase registroSelecionado = SelecionarRegistroPorId(idRegistro);
+        T registroSelecionado = SelecionarRegistroPorId(idRegistro);
 
         if (registroSelecionado != null)
         {
@@ -60,14 +41,14 @@ public abstract class RepositorioBase
         return false;
     }
 
-    public ArrayList SelecionarRegistros()
+    public List<T> SelecionarRegistros()
     {
         return registros;
     }
 
-    public EntidadeBase SelecionarRegistroPorId(int idRegistro)
+    public T SelecionarRegistroPorId(int idRegistro)
     {
-        foreach (EntidadeBase item in registros)
+        foreach (T item in registros)
         {
             if (item.Id == idRegistro)
                 return item;

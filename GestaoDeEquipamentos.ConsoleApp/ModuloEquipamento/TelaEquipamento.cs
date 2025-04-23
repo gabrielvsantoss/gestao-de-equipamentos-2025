@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-public class TelaEquipamento : TelaBase
+public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 {
     public RepositorioEquipamento repositorioEquipamento;
     public RepositorioFabricante repositorioFabricante;
@@ -142,9 +142,9 @@ public class TelaEquipamento : TelaBase
             "Id", "Nome", "Num. Série", "Fabricante", "Preço", "Data de Fabricação"
         );
 
-        ArrayList registros = repositorioEquipamento.SelecionarRegistros();
+        List<Equipamento> registros = repositorioEquipamento.SelecionarRegistros();
 
-        foreach (Equipamento e in registros)
+        foreach (var e in registros)
         {
             Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -11} | {3, -15} | {4, -15} | {5, -10}",
@@ -157,7 +157,7 @@ public class TelaEquipamento : TelaBase
         Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
-    public override EntidadeBase ObterDados()
+    public override Equipamento ObterDados()
     {
         Console.Write("Digite o nome do equipamento: ");
         string nome = Console.ReadLine();
@@ -203,9 +203,9 @@ public class TelaEquipamento : TelaBase
             "Id", "Nome", "Email", "Telefone", "Qtd. Equipamentos"
         );
 
-        ArrayList registros = repositorioFabricante.SelecionarRegistros();
+        List<Fabricante> registros = repositorioFabricante.SelecionarRegistros();
 
-        foreach (Fabricante f in registros)
+        foreach (var f in registros)
         {
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",

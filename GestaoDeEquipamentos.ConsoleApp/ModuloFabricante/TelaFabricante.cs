@@ -1,12 +1,11 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
-using System.Collections;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class TelaFabricante : TelaBase
+public class TelaFabricante : TelaBase<Fabricante>, ITelaCrud
 {
-    public RepositorioFabricante repositorioFabricante;
+    private RepositorioFabricante repositorioFabricante;
 
     public TelaFabricante(RepositorioFabricante repositorioFabricante) 
         : base("Fabricante", repositorioFabricante)
@@ -29,9 +28,9 @@ public class TelaFabricante : TelaBase
             "Id", "Nome", "Email", "Telefone", "Qtd. Equipamentos"
         );
 
-        ArrayList registros = repositorioFabricante.SelecionarRegistros();
+        List<Fabricante> registros = repositorioFabricante.SelecionarRegistros();
 
-        foreach (Fabricante f in registros)
+        foreach (var f in registros)
         {
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -30} | {3, -30} | {4, -20}",
@@ -44,7 +43,7 @@ public class TelaFabricante : TelaBase
         Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 
-    public override EntidadeBase ObterDados()
+    public override Fabricante ObterDados()
     {
         Console.Write("Digite o nome do fabricante: ");
         string nome = Console.ReadLine();

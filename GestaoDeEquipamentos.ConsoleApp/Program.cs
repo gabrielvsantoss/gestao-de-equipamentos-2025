@@ -1,5 +1,4 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
-using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 
 namespace GestaoDeEquipamentos.ConsoleApp;
@@ -14,7 +13,7 @@ class Program
         {
             telaPrincipal.ApresentarMenuPrincipal();
 
-            TelaBase telaSelecionada = telaPrincipal.ObterTela();
+            ITelaCrud telaSelecionada = telaPrincipal.ObterTela();
 
             char opcaoEscolhida = telaSelecionada.ApresentarMenu();
 

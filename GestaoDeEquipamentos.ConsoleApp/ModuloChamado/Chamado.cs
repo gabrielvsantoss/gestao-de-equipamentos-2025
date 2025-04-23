@@ -3,7 +3,7 @@ using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class Chamado : EntidadeBase
+public class Chamado : EntidadeBase<Chamado>
 {
     public string Titulo { get; set; }
     public string Descricao { get; set; }
@@ -27,10 +27,8 @@ public class Chamado : EntidadeBase
         DataAbertura = DateTime.Now;
     }
 
-    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    public override void AtualizarRegistro(Chamado chamadoAtualizado)
     {
-        Chamado chamadoAtualizado = (Chamado)registroAtualizado;
-
         Titulo = chamadoAtualizado.Titulo;
         Descricao = chamadoAtualizado.Descricao;
         Equipamento = chamadoAtualizado.Equipamento;
