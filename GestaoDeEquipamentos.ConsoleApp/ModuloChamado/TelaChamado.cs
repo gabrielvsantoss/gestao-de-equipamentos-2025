@@ -6,10 +6,10 @@ namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
 public class TelaChamado : TelaBase<Chamado>, ITelaCrud
 {
-    public RepositorioChamado repositorioChamado;
-    public RepositorioEquipamento repositorioEquipamento;
+    public IRepositorioChamado repositorioChamado;
+    public IRepositorioEquipamento repositorioEquipamento;
 
-    public TelaChamado(RepositorioChamado repositorioChamado, RepositorioEquipamento repositorioEquipamento)
+    public TelaChamado(IRepositorioChamado repositorioChamado, IRepositorioEquipamento repositorioEquipamento)
         : base("Chamado", repositorioChamado)
     {
         this.repositorioChamado = repositorioChamado;
