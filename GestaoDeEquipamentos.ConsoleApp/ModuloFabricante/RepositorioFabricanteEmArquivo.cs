@@ -2,6 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-public class RepositorioFabricante : RepositorioBaseEmMemoria<Fabricante> 
-{
-}
+public class RepositorioFabricanteEmArquivo : RepositorioBaseEmArquivo<Fabricante>, IRepositorioFabricante;

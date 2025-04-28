@@ -8,15 +8,15 @@ namespace GestaoDeEquipamentos.ConsoleApp.Util;
 public class TelaPrincipal
 {
     private char opcaoPrincipal;
-    private RepositorioFabricante repositorioFabricante;
-    private RepositorioEquipamento repositorioEquipamento;
-    private RepositorioChamado repositorioChamado;
+    private IRepositorioFabricante repositorioFabricante;
+    private IRepositorioEquipamento repositorioEquipamento;
+    private IRepositorioChamado repositorioChamado;
 
     public TelaPrincipal()
     {
-        this.repositorioFabricante = new RepositorioFabricante();
-        this.repositorioEquipamento = new RepositorioEquipamento();
-        this.repositorioChamado = new RepositorioChamado();
+        this.repositorioFabricante = new RepositorioFabricanteEmArquivo();
+        this.repositorioEquipamento = new RepositorioEquipamentoEmMemoria();
+        this.repositorioChamado = new RepositorioChamadoEmMemoria();
     }
 
     public void ApresentarMenuPrincipal()

@@ -2,6 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 
-public class RepositorioEquipamento : RepositorioBaseEmMemoria<Equipamento>
-{
-}
+public interface IRepositorioEquipamento : IRepositorio<Equipamento>;

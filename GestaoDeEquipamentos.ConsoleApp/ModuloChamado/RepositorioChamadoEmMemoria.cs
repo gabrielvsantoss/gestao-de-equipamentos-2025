@@ -2,6 +2,4 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 
-public class RepositorioChamado : RepositorioBaseEmMemoria<Chamado>
-{
-}
+public class RepositorioChamadoEmMemoria : RepositorioBaseEmMemoria<Chamado>, IRepositorioChamado;
