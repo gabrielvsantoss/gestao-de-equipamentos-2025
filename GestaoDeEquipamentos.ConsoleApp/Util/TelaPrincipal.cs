@@ -15,8 +15,8 @@ public class TelaPrincipal
     public TelaPrincipal()
     {
         this.repositorioFabricante = new RepositorioFabricanteEmArquivo();
-        this.repositorioEquipamento = new RepositorioEquipamentoEmMemoria();
-        this.repositorioChamado = new RepositorioChamadoEmMemoria();
+        this.repositorioEquipamento = new RepositorioEquipamentoEmArquivo();
+        this.repositorioChamado = new RepositorioChamadoEmArquivo();
     }
 
     public void ApresentarMenuPrincipal()
