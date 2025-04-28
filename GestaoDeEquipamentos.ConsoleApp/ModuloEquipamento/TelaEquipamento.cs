@@ -27,7 +27,7 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Console.WriteLine();
 
-        Equipamento novoEquipamento = (Equipamento)ObterDados();
+        Equipamento novoEquipamento = ObterDados();
 
         string erros = novoEquipamento.Validar();
 
@@ -63,12 +63,12 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Equipamento equipamentoAntigo = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
+        Equipamento equipamentoAntigo = repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
         Fabricante fabricanteAntigo = equipamentoAntigo.Fabricante;
 
         Console.WriteLine();
 
-        Equipamento equipamentoEditado = (Equipamento)ObterDados();
+        Equipamento equipamentoEditado = ObterDados();
 
         Fabricante fabricanteEditado = equipamentoEditado.Fabricante;
 
@@ -106,7 +106,11 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
+        Equipamento equipamentoSelecionado = repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
+
+        Fabricante fabricanteSelecionado = equipamentoSelecionado.Fabricante;
+
+        fabricanteSelecionado.RemoverEquipamento(equipamentoSelecionado);
 
         bool conseguiuExcluir = repositorioEquipamento.ExcluirRegistro(idSelecionado);
 
@@ -116,10 +120,6 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
             return;
         }
-
-        Fabricante fabricanteSelecionado = equipamentoSelecionado.Fabricante;
-
-        fabricanteSelecionado.RemoverEquipamento(equipamentoSelecionado);
 
         Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
@@ -172,7 +172,7 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
         Console.Write("Digite o id do registro que deseja selecionar: ");
         int idFabricante = Convert.ToInt32(Console.ReadLine());
 
-        Fabricante fabricanteSelecionado = (Fabricante)repositorioFabricante.SelecionarRegistroPorId(idFabricante);
+        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarRegistroPorId(idFabricante);
 
         Equipamento equipamento = new Equipamento(
             nome,
@@ -180,10 +180,6 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
             dataFabricacao,
             fabricanteSelecionado
         );
-
-        Fabricante fabricante = equipamento.Fabricante;
-
-        fabricante.AdicionarEquipamento(equipamento);
 
         return equipamento;
     }
