@@ -10,7 +10,7 @@ public class Fabricante : EntidadeBase<Fabricante>
     public string Nome { get; set; }
     public string Email { get; set; }
     public string Telefone { get; set; }
-    public ArrayList Equipamentos { get; private set; }
+    public List<Equipamento> Equipamentos { get; set; }
     public int QuantidadeEquipamentos
     {
         get
@@ -19,12 +19,16 @@ public class Fabricante : EntidadeBase<Fabricante>
         }
     }
 
-    public Fabricante(string nome, string email, string telefone)
+    public Fabricante()
+    {
+        Equipamentos = new List<Equipamento>();
+    }
+
+    public Fabricante(string nome, string email, string telefone) : this()
     {
         Nome = nome;
         Email = email;
         Telefone = telefone;
-        Equipamentos = new ArrayList();
     }
 
     public override string Validar()
@@ -55,12 +59,14 @@ public class Fabricante : EntidadeBase<Fabricante>
 
     public void AdicionarEquipamento(Equipamento equipamento)
     {
-        Equipamentos.Add(equipamento);
+        if (!Equipamentos.Contains(equipamento))
+            Equipamentos.Add(equipamento);
     }
 
     public void RemoverEquipamento(Equipamento equipamento)
     {
-        Equipamentos.Remove(equipamento);
+        if (Equipamentos.Contains(equipamento))
+            Equipamentos.Remove(equipamento);
     }
 
     public override void AtualizarRegistro(Fabricante fabricanteEditado)

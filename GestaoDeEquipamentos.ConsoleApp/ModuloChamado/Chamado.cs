@@ -8,7 +8,7 @@ public class Chamado : EntidadeBase<Chamado>
     public string Titulo { get; set; }
     public string Descricao { get; set; }
     public Equipamento Equipamento { get; set; }
-    public DateTime DataAbertura { get; private set; }
+    public DateTime DataAbertura { get; set; }
     public int TempoDecorrido
     {
         get
@@ -19,7 +19,11 @@ public class Chamado : EntidadeBase<Chamado>
         }
     }
 
-    public Chamado(string titulo, string descricao, Equipamento equipamento)
+    public Chamado()
+    {
+    }
+
+    public Chamado(string titulo, string descricao, Equipamento equipamento) : this()
     {
         Titulo = titulo;
         Descricao = descricao;
