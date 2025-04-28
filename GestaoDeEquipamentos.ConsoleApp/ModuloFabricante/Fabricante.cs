@@ -65,7 +65,8 @@ public class Fabricante : EntidadeBase<Fabricante>
 
     public void RemoverEquipamento(Equipamento equipamento)
     {
-        Equipamentos.Remove(equipamento);
+        if (Equipamentos.Contains(equipamento))
+            Equipamentos.Remove(equipamento);
     }
 
     public override void AtualizarRegistro(Fabricante fabricanteEditado)

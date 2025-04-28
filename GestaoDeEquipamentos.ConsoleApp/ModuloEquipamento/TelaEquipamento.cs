@@ -108,6 +108,10 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarRegistroPorId(idSelecionado);
 
+        Fabricante fabricanteSelecionado = equipamentoSelecionado.Fabricante;
+
+        fabricanteSelecionado.RemoverEquipamento(equipamentoSelecionado);
+
         bool conseguiuExcluir = repositorioEquipamento.ExcluirRegistro(idSelecionado);
 
         if (!conseguiuExcluir)
@@ -116,10 +120,6 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
             return;
         }
-
-        Fabricante fabricanteSelecionado = equipamentoSelecionado.Fabricante;
-
-        fabricanteSelecionado.RemoverEquipamento(equipamentoSelecionado);
 
         Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
