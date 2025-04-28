@@ -11,12 +11,14 @@ public class TelaPrincipal
     private IRepositorioFabricante repositorioFabricante;
     private IRepositorioEquipamento repositorioEquipamento;
     private IRepositorioChamado repositorioChamado;
+    private ContextoDados contexto;
 
     public TelaPrincipal()
     {
-        this.repositorioFabricante = new RepositorioFabricanteEmArquivo();
-        this.repositorioEquipamento = new RepositorioEquipamentoEmMemoria();
-        this.repositorioChamado = new RepositorioChamadoEmMemoria();
+        this.contexto = new ContextoDados(carregarDados: true);
+        this.repositorioFabricante = new RepositorioFabricanteEmArquivo(contexto);
+        this.repositorioEquipamento = new RepositorioEquipamentoEmArquivo(contexto);
+        this.repositorioChamado = new RepositorioChamadoEmArquivo(contexto);
     }
 
     public void ApresentarMenuPrincipal()

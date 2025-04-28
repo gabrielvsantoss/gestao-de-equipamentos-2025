@@ -6,13 +6,14 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
 {
     private List<T> registros = new List<T>();
     private int contadorIds = 0;
-    private string nomeArquivo;
 
-    protected RepositorioBaseEmArquivo(string nomeArquivo)
+    protected ContextoDados contexto;
+
+    protected RepositorioBaseEmArquivo(ContextoDados contexto)
     {
-        this.nomeArquivo = nomeArquivo;
+        this.contexto = contexto;
 
-        registros = Desserializar();
+        registros = ObterDados();
 
         int maiorId = 0;
 
@@ -31,7 +32,7 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
 
         registros.Add(novoRegistro);
 
-        Serializar();
+        contexto.Salvar();
     }
 
     public bool EditarRegistro(int idRegistro, T registroEditado)
@@ -42,7 +43,7 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
             {
                 item.AtualizarRegistro(registroEditado);
 
-                Serializar();
+                contexto.Salvar();
 
                 return true;
             }
@@ -59,7 +60,7 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
         {
             registros.Remove(registroSelecionado);
 
-            Serializar();
+            contexto.Salvar();
 
             return true;
         }
@@ -83,35 +84,5 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase<T>
         return null;
     }
 
-    protected void Serializar()
-    {
-        string pastaArmazenamento = "C:\\temp";
-        string caminhoCompleto = Path.Combine(pastaArmazenamento, nomeArquivo);
-
-        JsonSerializerOptions options = new JsonSerializerOptions();
-        options.WriteIndented = true;
-
-        string jsonString = JsonSerializer.Serialize(registros, options);
-
-        if (!Directory.Exists(pastaArmazenamento))
-            Directory.CreateDirectory(pastaArmazenamento);
-
-        File.WriteAllText(caminhoCompleto, jsonString);
-    }
-
-    protected List<T> Desserializar()
-    {
-        string pastaArmazenamento = "C:\\temp";
-        string caminhoCompleto = Path.Combine(pastaArmazenamento, nomeArquivo);
-
-        if (!File.Exists(caminhoCompleto))
-            return new List<T>();
-
-        string jsonString = File.ReadAllText(caminhoCompleto);
-
-        if (string.IsNullOrWhiteSpace(jsonString))
-            return new List<T>();
-
-        return JsonSerializer.Deserialize<List<T>>(jsonString)!;
-    }
+    protected abstract List<T> ObterDados();
 }

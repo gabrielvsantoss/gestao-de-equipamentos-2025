@@ -181,10 +181,6 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
             fabricanteSelecionado
         );
 
-        Fabricante fabricante = equipamento.Fabricante;
-
-        fabricante.AdicionarEquipamento(equipamento);
-
         return equipamento;
     }
 
