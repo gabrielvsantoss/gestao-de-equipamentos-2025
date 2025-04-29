@@ -70,6 +70,17 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
 
         Equipamento equipamentoEditado = ObterDados();
 
+        string erros = equipamentoEditado.Validar();
+
+        if (erros.Length > 0)
+        {
+            Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+
+            EditarRegistro();
+
+            return;
+        }
+
         Fabricante fabricanteEditado = equipamentoEditado.Fabricante;
 
         if (fabricanteAntigo != fabricanteEditado)

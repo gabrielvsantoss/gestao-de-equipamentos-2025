@@ -124,11 +124,11 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
         VisualizarRegistros(false);
 
         Console.Write("Digite o ID do registro que deseja selecionar: ");
-        int idFabricante = Convert.ToInt32(Console.ReadLine());
+        int idRegistro = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine();
 
-        bool conseguiuExcluir = repositorio.ExcluirRegistro(idFabricante);
+        bool conseguiuExcluir = repositorio.ExcluirRegistro(idRegistro);
 
         if (!conseguiuExcluir)
         {
