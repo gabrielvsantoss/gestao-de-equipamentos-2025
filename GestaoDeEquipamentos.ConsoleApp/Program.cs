@@ -12,15 +12,15 @@ class Program
 
         WebApplication app = builder.Build();
 
-        app.MapGet("/", OlaMundo);
+        app.MapGet("/", PaginaInicial);
 
         app.Run();
     }
 
-    static Task OlaMundo(HttpContext context)
+    static Task PaginaInicial(HttpContext context)
     {
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        string conteudo = File.ReadAllText("Html/PaginaInicial.html");
 
-        return context.Response.WriteAsync("Olá mundo!");
+        return context.Response.WriteAsync(conteudo);
     }
 }
