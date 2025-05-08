@@ -23,6 +23,9 @@ class Program
         app.MapGet("/fabricantes/editar/{id:int}", ExibirFormularioEdicaoFabricante);
         app.MapPost("/fabricantes/editar/{id:int}", EditarFabricante);
 
+        app.MapGet("/fabricantes/excluir/{id:int}", ExibirFormularioExclusaoFabricante);
+        app.MapPost("/fabricantes/excluir/{id:int}", ExcluirFabricante);
+
         app.MapGet("/fabricantes/visualizar", VisualizarFabricantes);
 
         app.Run();
@@ -109,6 +112,47 @@ class Program
         StringBuilder sb = new StringBuilder(conteudo);
 
         sb.Replace("#mensagem#", $"O registro \"{fabricanteAtualizado.Nome}\" foi editado com sucesso!");
+
+        string conteudoString = sb.ToString();
+
+        return context.Response.WriteAsync(conteudoString);
+    }
+
+    static Task ExibirFormularioExclusaoFabricante(HttpContext context)
+    {
+        ContextoDados contextoDados = new ContextoDados(true);
+        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+
+        int id = Convert.ToInt32(context.GetRouteValue("id"));
+
+        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarRegistroPorId(id);
+
+        string conteudo = File.ReadAllText("ModuloFabricante/Html/Excluir.html");
+
+        StringBuilder sb = new StringBuilder(conteudo);
+
+        sb.Replace("#id#", id.ToString());
+        sb.Replace("#fabricante#", fabricanteSelecionado.Nome);
+
+        string conteudoString = sb.ToString();
+
+        return context.Response.WriteAsync(conteudoString);
+    }
+
+    static Task ExcluirFabricante(HttpContext context)
+    {
+        int id = Convert.ToInt32(context.GetRouteValue("id"));
+
+        ContextoDados contextoDados = new ContextoDados(true);
+        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+
+        repositorioFabricante.ExcluirRegistro(id);
+
+        string conteudo = File.ReadAllText("Compartilhado/Html/Notificacao.html");
+
+        StringBuilder sb = new StringBuilder(conteudo);
+
+        sb.Replace("#mensagem#", $"O registro foi excluído com sucesso!");
 
         string conteudoString = sb.ToString();
 
